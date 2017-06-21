@@ -676,20 +676,20 @@ public class ViewPortHandler {
     /**
      * Returns true if the chart is fully zoomed out on it's y-axis (vertical).
      *
-     * @return
+     * @return false, so that the labels and grid lines fill the whole y-axis.
      */
     public boolean isFullyZoomedOutY() {
-        return !(mScaleY > mMinScaleY || mMinScaleY > 1f);
+        return false;
     }
 
     /**
      * Returns true if the chart is fully zoomed out on it's x-axis
      * (horizontal).
      *
-     * @return
+     * @return false, so that the labels and grid lines fill the whole x-axis.
      */
     public boolean isFullyZoomedOutX() {
-        return !(mScaleX > mMinScaleX || mMinScaleX > 1f);
+        return false;
     }
 
     /**
