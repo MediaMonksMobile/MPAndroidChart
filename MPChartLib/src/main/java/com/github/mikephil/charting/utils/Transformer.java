@@ -13,6 +13,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Transformer class that contains all matrices and is responsible for
@@ -173,6 +174,10 @@ public class Transformer {
                                                  int min, int max) {
 
         final int count = ((int) ((max - min) * phaseX) + 1) * 2;
+
+        if (count < 0) {
+            throw new IllegalArgumentException(String.format(Locale.US, "cannot create less-than-zero set of transformed values. data=%s phaseX=%f min=%d max=%d", data, phaseX, min, max));
+        }
 
         if (valuePointsForGenerateTransformedValuesLine.length != count) {
             valuePointsForGenerateTransformedValuesLine = new float[count];
