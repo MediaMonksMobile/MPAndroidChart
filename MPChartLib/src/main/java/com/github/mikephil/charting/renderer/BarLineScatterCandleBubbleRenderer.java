@@ -8,6 +8,8 @@ import com.github.mikephil.charting.interfaces.datasets.IBarLineScatterCandleBub
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.util.Locale;
+
 /**
  * Created by Philipp Jahoda on 09/06/16.
  */
@@ -90,6 +92,9 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
 
             min = entryFrom == null ? 0 : dataSet.getEntryIndex(entryFrom);
             max = entryTo == null ? 0 : dataSet.getEntryIndex(entryTo);
+            if (min > max) {
+                throw new IllegalStateException(String.format(Locale.US, "invalid index range %d -> %d, entryFrom=%s, entryTo=%s, low=%f, high=%f, dataSet=%s", min, max, entryFrom, entryTo, low, high, dataSet));
+            }
             range = (int) ((max - min) * phaseX);
         }
     }
