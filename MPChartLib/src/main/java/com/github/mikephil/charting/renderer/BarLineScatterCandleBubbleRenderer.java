@@ -1,5 +1,7 @@
 package com.github.mikephil.charting.renderer;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
@@ -14,6 +16,7 @@ import java.util.Locale;
  * Created by Philipp Jahoda on 09/06/16.
  */
 public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
+    private static final String TAG = BarLineScatterCandleBubbleRenderer.class.getSimpleName();
 
     /**
      * buffer for storing the current minimum and maximum visible x
@@ -93,7 +96,10 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
             min = entryFrom == null ? 0 : dataSet.getEntryIndex(entryFrom);
             max = entryTo == null ? 0 : dataSet.getEntryIndex(entryTo);
             if (min > max) {
-                throw new IllegalStateException(String.format(Locale.US, "invalid index range %d -> %d, entryFrom=%s, entryTo=%s, low=%f, high=%f, dataSet=%s", min, max, entryFrom, entryTo, low, high, dataSet));
+                Log.w(TAG, String.format(Locale.US, "invalid index range %d -> %d, swapping indexes. entryFrom=%s, entryTo=%s, low=%f, high=%f, dataSet=%s", min, max, entryFrom, entryTo, low, high, dataSet));
+                int newMax = min;
+                min = max;
+                max = newMax;
             }
             range = (int) ((max - min) * phaseX);
         }
