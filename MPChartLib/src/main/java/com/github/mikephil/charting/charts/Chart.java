@@ -1736,7 +1736,9 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param view
      */
     private void unbindDrawables(View view) {
-
+        if(mJobs != null) {
+            mJobs.clear();
+        }
         if (view.getBackground() != null) {
             view.getBackground().setCallback(null);
         }
